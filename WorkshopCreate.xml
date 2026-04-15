@@ -1,0 +1,80 @@
+<Tasks>
+    <CreateItem/>
+    <UpdateItem>
+        <ModuleFolder Value="H:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\EEWebExtension"/>
+        <ItemDescription Value="A companion mod for Editable Encyclopedia that brings your Bannerlord encyclopedia to life in a cinematic, data-dense web dashboard.
+
+Open http://127.0.0.1:8080/ and explore your campaign as a living manuscript — forged gold accents, Calradia map backdrops, parchment grain, drifting embers, and themed panels for every corner of your realm.
+
+Browse heroes, clans, kingdoms, settlements. Watch events unfold in the Live Chronicle. Edit names, descriptions, lore, banners, cultures. Claim real in-game rewards from 32 achievements. Compare heroes with skill radar overlays. Track trade routes with profit multipliers. Manage every companion party's roles from one place. All from your browser, phone, or tablet while the game runs.
+
+[h1]v2.4.0 — THE IMMERSION OVERHAUL[/h1]
+[list]
+[*] Calradia map backdrops on every page with parchment grain and drifting embers
+[*] 9 color themes — Parchment, Iron, Oak + 6 Calradian culture themes (Empire, Aserai, Battania, Khuzait, Sturgia, Vlandia)
+[*] 32 Achievements across 7 categories with real Gold/Influence/Renown rewards
+[*] 9-tier Glory rank progression (Wanderer through Legend)
+[*] Commander Hub — 7 tabs (Character, Inventory, Party, Quests, Clan, Kingdom, Chronicle) with auto-generated honorifics, SVG gauges, and animated counters
+[*] Stats Dashboard with 9 charts (donuts, leaderboards, age pyramid, prosperity heatmap, wealth sparkline)
+[*] Clan Power Rankings with top-3 podium, filters, and CSV export
+[*] Caravan Ledger trade routes with category icons, animated arrows, and best-market recommendations
+[*] Compare Heroes with skill radar overlay (up to 4 heroes)
+[*] Context-aware Player HUD auto-hides on browsing pages
+[*] Unified Preferences modal (density, typography, themes, navigation, sound)
+[*] Sound system with 4 presets (Default, Horn, Parchment, Steel), volume, per-event toggles, animated equalizer
+[*] Themed notifications panel with filters, search, snooze, dismiss
+[*] Sidebar rail navigation with collapse-to-icon-only mode
+[*] Universal themed tooltips that intercept native title attributes
+[/list]
+
+[h1]CORE FEATURES[/h1]
+[list]
+[*] Full web encyclopedia at http://127.0.0.1:8080/ with Viking/medieval dark theme
+[*] Live sync — detail views auto-refresh with game data every 8 seconds (LIVE badge)
+[*] Hero portraits extracted from the game engine + culture-specific artwork
+[*] Banner rendering — clan/kingdom banners exported as PNGs from banner codes
+[*] Live Chronicle — real-time timeline of wars, battles, marriages, crimes
+[*] Live Campaign Map with settlements, parties, kingdom borders, war arrows, plan mode
+[*] 60+ REST API endpoints covering every Editable Encyclopedia feature
+[*] Postman collection export for API integration
+[/list]
+
+[h1]EDITING FROM BROWSER[/h1]
+[list]
+[*] Heroes: Name, Title, Description, Lore (5 fields), Culture, Occupation, Tags, Relation Notes
+[*] Clans/Kingdoms/Settlements: Name, Description, Banner, Tags, Journal
+[*] Kingdom diplomacy: declare war, make peace, alliance, trade agreement, create army
+[*] Settlement management: gift, garrison wage, governor, member assignment, building projects
+[*] Clan party roles: assign Quartermaster/Scout/Surgeon/Engineer to any party (including companion parties)
+[/list]
+
+[h1]CONFIGURATION (MCM)[/h1]
+17 settings under 9. Extensions / EEWebExtension:
+[list]
+[*] Custom port, auto-open browser, LAN access (phone/tablet), read-only mode
+[*] Live sync toggle and interval (2-60 seconds)
+[*] Toggle intro screen, ember particles, gold sparks, sounds, scroll animations
+[*] Cards per page (20-200)
+[*] One-click 'Open in Browser' button
+[/list]
+
+[h1]REQUIREMENTS[/h1]
+[list]
+[*] Editable Encyclopedia mod (must load first)
+[*] Bannerlord v1.2.x or v1.3.x
+[/list]
+
+No external dependencies. No npm, no CDN, no build tools. Pure vanilla HTML/CSS/JS.
+
+By XMuPb — v2.4.0"/>
+        <Tags>
+            <Tag Value="UI" />
+            <Tag Value="Utility" />
+            <Tag Value="Dark Ages" />
+            <Tag Value="Singleplayer" />
+            <Tag Value="v1.2.0" />
+        </Tags>
+        <Image Value="H:\steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\EEWebExtension\preview.png"/>
+        <Visibility Value="Public"/>
+    </UpdateItem>
+</Tasks>

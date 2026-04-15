@@ -1,0 +1,45 @@
+# ── Build output ──────────────────────────────────────────────
+bin/
+obj/
+*.dll
+*.pdb
+*.cache
+
+# ── Visual Studio / IDE ───────────────────────────────────────
+.vs/
+*.user
+*.suo
+*.userosscache
+.idea/
+*.swp
+
+# ── OS junk ───────────────────────────────────────────────────
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+debug.log
+Logs/
+
+# ── NuGet ─────────────────────────────────────────────────────
+packages/
+*.nupkg
+
+# ── Game-extracted assets (generated at runtime by EncyclopediaWebServer) ──
+# These are TaleWorlds copyright and are auto-generated on first game run.
+# Do NOT commit them to the public repo.
+Web/Potraits/
+Web/Portraits/
+Web/BannerIcons/
+Web/Hero/
+Web/Settlement/
+Web/Sperks/
+Web/Skills/
+Web/Traits/
+Web/Map/*.png
+Web/Banners/
+
+# ── Duplicate/orphaned subfolder (legacy structure) ───────────
+Web/Web/

@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0c10">
+<title>Bannerlord Encyclopedia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20260412a">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+
+<!-- ═══ CINEMATIC INTRO OVERLAY ═══ -->
+<div class="intro-overlay" id="introOverlay" style="display:none">
+  <div class="intro-bg"></div>
+  <div class="intro-embers">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="intro-vignette"></div>
+  <div class="intro-glow"></div>
+  <div class="intro-content">
+    <div class="intro-ornament">
+      <svg viewBox="0 0 200 40" width="200" height="40">
+        <line x1="0" y1="20" x2="60" y2="20" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+        <circle cx="70" cy="20" r="2.5" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".5"/>
+        <path d="M80,15 L90,20 L80,25 L90,20 L100,15 L110,20 L100,25 L110,20 L120,15 L130,20 L120,25" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".5"/>
+        <circle cx="135" cy="20" r="2.5" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".5"/>
+        <line x1="145" y1="20" x2="200" y2="20" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="intro-kicker">
+      <span class="intro-kicker-word">Entering</span>
+      <span class="intro-kicker-word">the</span>
+    </div>
+    <div class="intro-title">
+      <span class="intro-title-word">Living</span>
+      <span class="intro-title-word">Chronicle</span>
+    </div>
+    <div class="intro-ornament intro-ornament-2">
+      <svg viewBox="0 0 200 40" width="200" height="40">
+        <line x1="0" y1="20" x2="60" y2="20" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+        <circle cx="70" cy="20" r="2.5" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".5"/>
+        <path d="M80,15 L90,20 L80,25 L90,20 L100,15 L110,20 L100,25 L110,20 L120,15 L130,20 L120,25" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".5"/>
+        <circle cx="135" cy="20" r="2.5" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".5"/>
+        <line x1="145" y1="20" x2="200" y2="20" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="intro-game">Mount &amp; Blade II</div>
+    <div class="intro-sub">
+      <span class="intro-letter">B</span><span class="intro-letter">A</span><span class="intro-letter">N</span><span class="intro-letter">N</span><span class="intro-letter">E</span><span class="intro-letter">R</span><span class="intro-letter">L</span><span class="intro-letter">O</span><span class="intro-letter">R</span><span class="intro-letter">D</span>
+    </div>
+    <div class="intro-desc">Encyclopedia</div>
+    <div class="intro-loading">
+      <div class="intro-loading-bar"><div class="intro-loading-fill"></div></div>
+      <div class="intro-loading-text">Loading world data...</div>
+    </div>
+    <div class="intro-skip">Click anywhere to skip</div>
+  </div>
+  <div class="intro-start-prompt" id="introStartPrompt">
+    <div class="intro-start-text">Click to Enter</div>
+  </div>
+</div>
+
+<!-- SVG filter for warming blue-tinted game portraits -->
+<!-- To tune: open browser DevTools (F12), find this filter, edit values live -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <filter id="portraitColorFix" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="
+      1.15  0.04  0.07  0.0  0.01
+      0.0   0.62  0.0   0.0  0.0
+     -0.02  0.0   0.46  0.0  0.0
+      0.0   0.0   0.0   1.0  0.0
+    " result="mixed"/>
+    <feComponentTransfer in="mixed" result="curved">
+      <feFuncR type="gamma" amplitude="0.96" exponent="0.98" offset="0.0"/>
+      <feFuncG type="gamma" amplitude="0.88" exponent="1.08" offset="0.0"/>
+      <feFuncB type="gamma" amplitude="0.86" exponent="1.15" offset="0.0"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
+
+<div class="app">
+
+  <!-- ═══ AMBIENT EFFECTS (always visible) ═══ -->
+  <div class="dust-layer" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <header class="topbar">
+    <!-- Ornamental gold border bottom -->
+    <div class="topbar-ornament">
+      <svg viewBox="0 0 1200 6" preserveAspectRatio="none">
+        <line x1="0" y1="1" x2="1200" y2="1" stroke="#b88c32" stroke-width=".5" opacity=".15"/>
+        <line x1="0" y1="4" x2="1200" y2="4" stroke="#b88c32" stroke-width=".3" opacity=".08"/>
+        <!-- Center diamond -->
+        <polygon points="595,0 600,3 605,0 600,-3" fill="#b88c32" opacity=".2"/>
+      </svg>
+    </div>
+
+    <div class="brand">
+      <div class="brand-mark">
+        <img src="logo.jpg" alt="EE" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <svg class="brand-sword" style="display:none" viewBox="0 0 24 24" width="22" height="22"><path d="M12 2l1.5 8.5L22 12l-8.5 1.5L12 22l-1.5-8.5L2 12l8.5-1.5z" fill="#0b0c10"/></svg>
+      </div>
+      <div>
+        <h1>Editable Encyclopedia</h1>
+        <small>for Bannerlord &middot; v2.1.0</small>
+      </div>
+    </div>
+
+    <!-- Nav separator left -->
+    <div class="nav-sep">
+      <svg viewBox="0 0 2 30" width="2" height="30"><line x1="1" y1="4" x2="1" y2="26" stroke="#b88c32" stroke-width=".8" opacity=".2"/></svg>
+    </div>
+
+    <nav class="nav" id="mainNav">
+      <a href="#" class="active" data-page="home">
+        <span class="nav-icon">&#9750;</span> Home
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="commander">
+        <span class="nav-icon">&#x2655;</span> Commander
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="heroes">
+        <span class="nav-icon">&#x2694;</span> Heroes
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="clans">
+        <span class="nav-icon">&#x1F6E1;</span> Clans
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="settlements">
+        <span class="nav-icon">&#x1F3F0;</span> Settlements
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="kingdoms">
+        <span class="nav-icon">&#x1F451;</span> Kingdoms
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="chronicle">
+        <span class="nav-icon">&#x1F4DC;</span> Chronicle
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="map">
+        <span class="nav-icon">&#x1F5FA;</span> Map
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="api">
+        <span class="nav-icon">&#x1F9E9;</span> API
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="stats">
+        <span class="nav-icon">&#x1F4CA;</span> Stats
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+      <a href="#" data-page="rankings">
+        <span class="nav-icon">&#x1F3C6;</span> Rankings
+      </a>
+      <span class="nav-dot">&#x2726;</span>
+    </nav>
+
+    <!-- Nav separator right -->
+    <div class="nav-sep">
+      <svg viewBox="0 0 2 30" width="2" height="30"><line x1="1" y1="4" x2="1" y2="26" stroke="#b88c32" stroke-width=".8" opacity=".2"/></svg>
+    </div>
+
+    <div class="topbar-right">
+      <div class="ee-search-wrap">
+        <input type="text" class="ee-search-input" id="globalSearch" placeholder="&#x1F50D; Search...">
+        <div class="ee-search-results" id="globalSearchResults"></div>
+      </div>
+      <button class="ee-notif-btn" onclick="openCommandPalette()" title="Quick search (Ctrl+K)" style="margin-right:10px">
+        <span>&#x1F50D;</span>
+      </button>
+      <button class="ee-notif-btn" onclick="document.getElementById('kbdHelpOverlay').classList.add('open')" title="Keyboard shortcuts (?)" style="margin-right:10px">
+        <span>&#x2753;</span>
+      </button>
+      <button class="ee-notif-btn" id="soundToggleBtn" onclick="toggleSound()" title="Sound effects" style="margin-right:10px">
+        <span id="soundToggleIcon">&#x1F507;</span>
+      </button>
+      <button class="ee-notif-btn" onclick="openPreferences()" title="Preferences — density, theme, font, sound, navigation" style="margin-right:10px">
+        <span>&#x2699;</span>
+      </button>
+<button class="ee-notif-btn" onclick="openChangelog()" title="Changelog / About" style="margin-right:10px">
+        <span>&#x2139;</span>
+      </button>
+      <button class="ee-notif-btn" onclick="openHeroCompare()" title="Compare heroes" style="margin-right:10px">
+        <span>&#x2696;</span>
+      </button>
+      <button class="ee-notif-btn" onclick="showTradeRoutes()" title="Best Trade Routes" style="margin-right:10px">
+        <span>&#x1F4B0;</span>
+      </button>
+      <div class="ee-notif-wrap">
+        <button class="ee-notif-btn" id="notifBtn" title="Notifications">
+          <span>&#x1F514;</span>
+          <span class="ee-notif-badge" id="notifBadge" style="display:none">0</span>
+        </button>
+        <div class="ee-notif-panel" id="notifPanel"></div>
+      </div>
+      <div class="pill" id="pillStatus"><span class="status-dot"></span> Connecting...</div>
+      <div class="pill" id="pillDate">Date: &mdash;</div>
+      <div class="pill" id="pillPlayer">Player: &mdash;</div>
+    </div>
+  </header>
+
+  <!-- ═══ HOME PAGE ═══ -->
+  <section class="page active" id="page-home">
+    <div class="hero-banner">
+      <!-- Night sky & stars -->
+      <div class="stars">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="hero-art">
+        <div class="sky"></div>
+        <div class="aurora"></div>
+        <div class="range-far"></div>
+        <div class="range-near"></div>
+        <div class="treeline"></div>
+        <div class="mist"></div>
+        <div class="mist mist-2"></div>
+
+        <div class="embers">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="ground"></div>
+      </div>
+
+      <!-- Torchlight flicker overlay -->
+      <div class="torchlight"></div>
+
+      <!-- Content -->
+      <div class="hero-content">
+
+        <!-- Norse knotwork border top -->
+        <div class="norse-border norse-top">
+          <svg viewBox="0 0 600 16" preserveAspectRatio="xMidYMid meet">
+            <line x1="0" y1="8" x2="180" y2="8" stroke="#b88c32" stroke-width=".7" opacity=".3"/>
+            <circle cx="190" cy="8" r="3" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".5"/>
+            <path d="M200,3 Q210,8 200,13 Q210,8 220,3 Q230,8 220,13 Q230,8 240,3 Q250,8 240,13 Q250,8 260,3 Q270,8 260,13 Q270,8 280,3 Q290,8 280,13 Q290,8 300,3 Q310,8 300,13 Q310,8 320,3 Q330,8 320,13 Q330,8 340,3 Q350,8 340,13 Q350,8 360,3 Q370,8 360,13 Q370,8 380,3 Q390,8 380,13 Q390,8 400,3" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+            <circle cx="410" cy="8" r="3" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".5"/>
+            <line x1="420" y1="8" x2="600" y2="8" stroke="#b88c32" stroke-width=".7" opacity=".3"/>
+          </svg>
+        </div>
+
+        <div class="hero-kicker">
+          <span class="rune">&#5765;</span>
+          The Living Chronicle
+          <span class="rune">&#5765;</span>
+        </div>
+
+        <div class="hero-title-wrap">
+          <!-- Shield ornament behind title -->
+          <div class="shield-ornament">
+            <svg viewBox="0 0 120 140" width="120" height="140">
+              <path d="M60 5 L110 25 L110 80 Q110 120 60 138 Q10 120 10 80 L10 25 Z" fill="none" stroke="#b88c32" stroke-width="1.2" opacity=".12"/>
+              <path d="M60 15 L100 32 L100 78 Q100 112 60 128 Q20 112 20 78 L20 32 Z" fill="none" stroke="#b88c32" stroke-width=".6" opacity=".08"/>
+              <line x1="60" y1="20" x2="60" y2="125" stroke="#b88c32" stroke-width=".5" opacity=".06"/>
+              <line x1="25" y1="55" x2="95" y2="55" stroke="#b88c32" stroke-width=".5" opacity=".06"/>
+            </svg>
+          </div>
+          <h2 class="hero-title">Bannerlord</h2>
+          <!-- Crossed swords under title -->
+          <div class="crossed-swords">
+            <svg viewBox="0 0 200 24" width="200" height="24">
+              <line x1="30" y1="20" x2="100" y2="4" stroke="#b88c32" stroke-width="1.5" opacity=".3" stroke-linecap="round"/>
+              <line x1="170" y1="20" x2="100" y2="4" stroke="#b88c32" stroke-width="1.5" opacity=".3" stroke-linecap="round"/>
+              <circle cx="100" cy="4" r="3" fill="#b88c32" opacity=".2"/>
+              <line x1="26" y1="16" x2="34" y2="24" stroke="#b88c32" stroke-width="1.2" opacity=".25"/>
+              <line x1="166" y1="16" x2="174" y2="24" stroke="#b88c32" stroke-width="1.2" opacity=".25"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero-sub">Encyclopedia</div>
+        <p class="hero-desc">A living archive of every hero, clan, settlement, and kingdom across the realm of Calradia &mdash; forged in war, shaped by fate.</p>
+        <div class="hero-meta" id="heroMeta"></div>
+
+        <!-- Norse knotwork border bottom -->
+        <div class="norse-border norse-bottom">
+          <svg viewBox="0 0 600 16" preserveAspectRatio="xMidYMid meet">
+            <line x1="0" y1="8" x2="180" y2="8" stroke="#b88c32" stroke-width=".7" opacity=".3"/>
+            <circle cx="190" cy="8" r="3" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".5"/>
+            <path d="M200,3 Q210,8 200,13 Q210,8 220,3 Q230,8 220,13 Q230,8 240,3 Q250,8 240,13 Q250,8 260,3 Q270,8 260,13 Q270,8 280,3 Q290,8 280,13 Q290,8 300,3 Q310,8 300,13 Q310,8 320,3 Q330,8 320,13 Q330,8 340,3 Q350,8 340,13 Q350,8 360,3 Q370,8 360,13 Q370,8 380,3 Q390,8 380,13 Q390,8 400,3" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+            <circle cx="410" cy="8" r="3" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".5"/>
+            <line x1="420" y1="8" x2="600" y2="8" stroke="#b88c32" stroke-width=".7" opacity=".3"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-content">
+      <div class="sword-divider">
+        <svg viewBox="0 0 400 20" preserveAspectRatio="xMidYMid meet">
+          <line x1="0" y1="10" x2="170" y2="10" stroke="#d8b35f" stroke-width="1.2" opacity=".5"/>
+          <polygon points="185,4 200,10 185,16" fill="#d8b35f" opacity=".7"/>
+          <polygon points="215,4 200,10 215,16" fill="#d8b35f" opacity=".7"/>
+          <line x1="230" y1="10" x2="400" y2="10" stroke="#d8b35f" stroke-width="1.2" opacity=".5"/>
+        </svg>
+      </div>
+
+      <div class="section-head"><h2>Grand Archive</h2></div>
+      <div class="summary-grid" id="summaryGrid">
+        <div class="summary skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+        <div class="summary skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+        <div class="summary skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+        <div class="summary skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+      </div>
+
+      <!-- Player Summary + World Status -->
+      <div class="home-panels">
+        <div class="home-panel" id="playerSummary"></div>
+        <div class="home-panel home-panel-world" id="worldStatus"></div>
+      </div>
+
+      <!-- Quick Actions Toolbar -->
+      <div class="home-quick-actions" id="homeQuickActions"></div>
+
+      <!-- Calendar + Treasury + Faction Power -->
+      <div class="home-widget-row">
+        <div class="home-widget home-widget-calendar" id="homeCalendar"></div>
+        <div class="home-widget home-widget-treasury" id="homeTreasury"></div>
+        <div class="home-widget home-widget-factions" id="homeFactions"></div>
+      </div>
+
+      <!-- Weekly Highlights + News + Quote -->
+      <div class="home-widget-row">
+        <div class="home-widget home-widget-highlights" id="homeHighlights"></div>
+        <div class="home-widget home-widget-news" id="homeNews"></div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="home-widget home-widget-achievements" id="homeAchievements"></div>
+
+      <!-- Quote of the Day -->
+      <div class="home-quote" id="homeQuote"></div>
+
+      <div class="section-head" style="margin-top:36px"><h2>Browse Sections</h2></div>
+      <div class="categories" id="catCards"></div>
+
+      <div class="sword-divider" style="margin-top:36px">
+        <svg viewBox="0 0 400 20" preserveAspectRatio="xMidYMid meet">
+          <line x1="0" y1="10" x2="170" y2="10" stroke="#d8b35f" stroke-width="1.2" opacity=".5"/>
+          <polygon points="185,4 200,10 185,16" fill="#d8b35f" opacity=".7"/>
+          <polygon points="215,4 200,10 215,16" fill="#d8b35f" opacity=".7"/>
+          <line x1="230" y1="10" x2="400" y2="10" stroke="#d8b35f" stroke-width="1.2" opacity=".5"/>
+        </svg>
+      </div>
+
+      <!-- Live Chronicle Panel -->
+      <div class="live-chronicle" id="liveChronicle">
+        <div class="lc-corner lc-tl"></div>
+        <div class="lc-corner lc-tr"></div>
+        <div class="lc-corner lc-bl"></div>
+        <div class="lc-corner lc-br"></div>
+        <div class="lc-header">
+          <h2>Live Chronicle</h2>
+          <span class="lc-count" id="lcCount">Loading...</span>
+        </div>
+        <div class="lc-filters" id="lcFilters"></div>
+        <div class="lc-scroll" id="lcScroll">
+          <div class="lc-empty">Awaiting world events...</div>
+        </div>
+        <div class="lc-footer">
+          <a href="#" onclick="showPage('chronicle');return false">View Full Chronicle &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COMMANDER PAGE ═══ -->
+  <section class="page" id="page-commander">
+    <div class="cmd-banner" id="cmdBanner"></div>
+    <div class="cmd-stats-bar" id="cmdStats"></div>
+    <div class="cmd-quick-actions" id="cmdQuickActions"></div>
+    <div class="cmd-side-row">
+      <div class="cmd-side-card" id="cmdBattleStats"></div>
+      <div class="cmd-side-card" id="cmdRepWheel"></div>
+      <div class="cmd-side-card" id="cmdDaysAlive"></div>
+    </div>
+    <div class="cmd-tabs">
+      <div class="cmd-tab-bar" id="cmdTabBar">
+        <button class="cmd-tab active" data-tab="character">Character</button>
+        <button class="cmd-tab" data-tab="inventory">Inventory</button>
+        <button class="cmd-tab" data-tab="party">Party</button>
+        <button class="cmd-tab" data-tab="quests">Quests<span class="cmd-tab-badge" id="badge-quests" style="display:none">0</span></button>
+        <button class="cmd-tab" data-tab="clan">Clan</button>
+        <button class="cmd-tab" data-tab="kingdom">Kingdom</button>
+        <button class="cmd-tab" data-tab="chronicle">Chronicle</button>
+      </div>
+      <div class="cmd-tab-content" id="cmdTabContent">
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HEROES PAGE ═══ -->
+  <section class="page" id="page-heroes">
+    <div class="page-banner page-banner-heroes">
+      <div class="page-banner-overlay"></div>
+      <div class="page-banner-content">
+        <h2>Heroes of Calradia</h2>
+        <p>Lords, ladies, companions, and notable figures</p>
+      </div>
+    </div>
+    <div class="list-layout">
+      <aside class="sidebar">
+        <div class="side-header">
+          <div class="side-label">Archive</div>
+          <div class="side-title">Heroes</div>
+          <div class="side-desc">Lords, ladies, companions, and notable figures.</div>
+        </div>
+        <div class="side-block">
+          <h3>Filter</h3>
+          <div class="side-list">
+            <div class="side-link active" onclick="setFilter('heroes','all',this)"><span>All Heroes</span><span class="filter-count" id="heroes-count-all"></span></div>
+            <div class="side-link" onclick="setFilter('heroes','alive',this)"><span>Living</span><span class="filter-count" id="heroes-count-alive"></span></div>
+            <div class="side-link" onclick="setFilter('heroes','dead',this)"><span>Deceased</span><span class="filter-count" id="heroes-count-dead"></span></div>
+            <div class="side-link" onclick="setFilter('heroes','custom',this)"><span>Custom Desc</span><span class="filter-count" id="heroes-count-custom"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Relation <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('heroes','met',this)"><span>Met Before</span><span class="filter-count" id="heroes-count-met"></span></div>
+            <div class="side-link" onclick="setFilter('heroes','notmet',this)"><span>Not Met</span><span class="filter-count" id="heroes-count-notmet"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Gender <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('heroes','male',this)"><span>Male</span><span class="filter-count" id="heroes-count-male"></span></div>
+            <div class="side-link" onclick="setFilter('heroes','female',this)"><span>Female</span><span class="filter-count" id="heroes-count-female"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Culture <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list" id="heroes-culture-filters"></div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Occupation <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list" id="heroes-occupation-filters"></div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Marital Status <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('heroes','married',this)"><span>Married</span><span class="filter-count" id="heroes-count-married"></span></div>
+            <div class="side-link" onclick="setFilter('heroes','single',this)"><span>Not Married</span><span class="filter-count" id="heroes-count-single"></span></div>
+          </div>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="list-panel panel">
+          <!-- Hero spotlight + quick stats + hall of fame -->
+          <div id="heroes-extras"></div>
+
+          <div class="list-header"><h2>Heroes of Calradia</h2></div>
+          <div class="toolbar">
+            <div class="search"><input type="text" placeholder="Search heroes..." id="search-heroes"></div>
+          </div>
+          <!-- Quick filter chips + sort + random -->
+          <div id="heroes-toolbar"></div>
+          <div class="grid" id="grid-heroes"></div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ═══ CLANS PAGE ═══ -->
+  <section class="page" id="page-clans">
+    <div class="page-banner page-banner-clans">
+      <div class="page-banner-overlay"></div>
+      <div class="page-banner-content">
+        <h2>Noble Clans</h2>
+        <p>Noble houses, their banners, and holdings</p>
+      </div>
+    </div>
+    <div class="list-layout">
+      <aside class="sidebar">
+        <div class="side-header">
+          <div class="side-label">Archive</div>
+          <div class="side-title">Clans</div>
+          <div class="side-desc">Noble houses, their banners, and holdings.</div>
+        </div>
+        <div class="side-block">
+          <h3>Filter</h3>
+          <div class="side-list">
+            <div class="side-link active" onclick="setFilter('clans','all',this)"><span>All Clans</span><span class="filter-count" id="clans-count-all"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Type <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('clans','kingdom',this)"><span>Kingdom Clans</span><span class="filter-count" id="clans-count-kingdom"></span></div>
+            <div class="side-link" onclick="setFilter('clans','minor',this)"><span>Minor Factions</span><span class="filter-count" id="clans-count-minor"></span></div>
+            <div class="side-link" onclick="setFilter('clans','bandit',this)"><span>Bandits</span><span class="filter-count" id="clans-count-bandit"></span></div>
+            <div class="side-link" onclick="setFilter('clans','independent',this)"><span>Independent</span><span class="filter-count" id="clans-count-independent"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Status <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('clans','active',this)"><span>Active</span><span class="filter-count" id="clans-count-active"></span></div>
+            <div class="side-link" onclick="setFilter('clans','eliminated',this)"><span>Eliminated</span><span class="filter-count" id="clans-count-eliminated"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Your Diplomacy <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('clans','diplo:ally',this)"><span>Ally</span><span class="filter-count" id="clans-count-ally"></span></div>
+            <div class="side-link" onclick="setFilter('clans','diplo:enemy',this)"><span>Enemy</span><span class="filter-count" id="clans-count-enemy"></span></div>
+            <div class="side-link" onclick="setFilter('clans','diplo:neutral',this)"><span>Neutral</span><span class="filter-count" id="clans-count-neutral"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Tier <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list" id="clans-tier-filters"></div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Culture <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list" id="clans-culture-filters"></div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title collapsed" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Kingdom <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list filter-hidden" id="clans-kingdom-filters"></div>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="list-panel panel">
+          <div id="clans-extras"></div>
+          <div class="list-header"><h2>Noble Clans</h2></div>
+          <div class="toolbar">
+            <div class="search"><input type="text" placeholder="Search clans..." id="search-clans"></div>
+          </div>
+          <div id="clans-toolbar"></div>
+          <div class="grid" id="grid-clans"></div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ═══ SETTLEMENTS PAGE ═══ -->
+  <section class="page" id="page-settlements">
+    <div class="page-banner page-banner-settlements">
+      <div class="page-banner-overlay"></div>
+      <div class="page-banner-content">
+        <h2>Settlements</h2>
+        <p>Towns, castles, and villages across Calradia</p>
+      </div>
+    </div>
+    <div class="list-layout">
+      <aside class="sidebar">
+        <div class="side-header">
+          <div class="side-label">Archive</div>
+          <div class="side-title">Settlements</div>
+          <div class="side-desc">Towns, castles, and villages across Calradia.</div>
+        </div>
+        <div class="side-block">
+          <h3>Filter</h3>
+          <div class="side-list">
+            <div class="side-link active" onclick="setFilter('settlements','all',this)"><span>All</span><span class="filter-count" id="sett-count-all"></span></div>
+            <div class="side-link" onclick="setFilter('settlements','Town',this)"><span>Towns</span><span class="filter-count" id="sett-count-Town"></span></div>
+            <div class="side-link" onclick="setFilter('settlements','Castle',this)"><span>Castles</span><span class="filter-count" id="sett-count-Castle"></span></div>
+            <div class="side-link" onclick="setFilter('settlements','Village',this)"><span>Villages</span><span class="filter-count" id="sett-count-Village"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Culture <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list" id="sett-culture-filters"></div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Kingdom <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list" id="sett-kingdom-filters"></div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title collapsed" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Owner Clan <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list filter-hidden" id="sett-owner-filters"></div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title collapsed" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Prosperity <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list filter-hidden">
+            <div class="side-link" onclick="setFilter('settlements','prosp:high',this)"><span>Thriving (5K+)</span><span class="filter-count" id="sett-count-prosp-high"></span></div>
+            <div class="side-link" onclick="setFilter('settlements','prosp:mid',this)"><span>Growing (2K-5K)</span><span class="filter-count" id="sett-count-prosp-mid"></span></div>
+            <div class="side-link" onclick="setFilter('settlements','prosp:low',this)"><span>Struggling (&lt;2K)</span><span class="filter-count" id="sett-count-prosp-low"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title collapsed" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Garrison <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list filter-hidden">
+            <div class="side-link" onclick="setFilter('settlements','garr:heavy',this)"><span>Heavy (200+)</span><span class="filter-count" id="sett-count-garr-heavy"></span></div>
+            <div class="side-link" onclick="setFilter('settlements','garr:light',this)"><span>Light (&lt;200)</span><span class="filter-count" id="sett-count-garr-light"></span></div>
+            <div class="side-link" onclick="setFilter('settlements','garr:none',this)"><span>Undefended</span><span class="filter-count" id="sett-count-garr-none"></span></div>
+          </div>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="list-panel panel">
+          <div id="settlements-extras"></div>
+          <div class="list-header"><h2>Settlements</h2></div>
+          <div class="toolbar">
+            <div class="search"><input type="text" placeholder="Search settlements..." id="search-settlements"></div>
+          </div>
+          <div id="settlements-toolbar"></div>
+          <div class="grid" id="grid-settlements"></div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ═══ KINGDOMS PAGE ═══ -->
+  <section class="page" id="page-kingdoms">
+    <div class="page-banner page-banner-kingdoms">
+      <div class="page-banner-overlay"></div>
+      <div class="page-banner-content">
+        <h2>Kingdoms</h2>
+        <p>Great powers shaping the fate of the realm</p>
+      </div>
+    </div>
+    <div class="list-layout">
+      <aside class="sidebar">
+        <div class="side-header">
+          <div class="side-label">Archive</div>
+          <div class="side-title">Kingdoms</div>
+          <div class="side-desc">Great powers shaping the fate of the realm.</div>
+        </div>
+        <div class="side-block">
+          <h3>Filter</h3>
+          <div class="side-list">
+            <div class="side-link active" onclick="setFilter('kingdoms','all',this)"><span>All Kingdoms</span><span class="filter-count" id="kingdoms-count-all"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Your Diplomacy <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('kingdoms','diplo:Own Kingdom',this)"><span>Own Kingdom</span><span class="filter-count" id="kingdoms-count-own"></span></div>
+            <div class="side-link" onclick="setFilter('kingdoms','diplo:Ally',this)"><span>Allies</span><span class="filter-count" id="kingdoms-count-ally"></span></div>
+            <div class="side-link" onclick="setFilter('kingdoms','diplo:Enemy',this)"><span>At War</span><span class="filter-count" id="kingdoms-count-enemy"></span></div>
+            <div class="side-link" onclick="setFilter('kingdoms','diplo:Neutral',this)"><span>Neutral</span><span class="filter-count" id="kingdoms-count-neutral"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">World Wars <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list">
+            <div class="side-link" onclick="setFilter('kingdoms','atwar',this)"><span>Kingdoms At War</span><span class="filter-count" id="kingdoms-count-atwar"></span></div>
+            <div class="side-link" onclick="setFilter('kingdoms','atpeace',this)"><span>Kingdoms At Peace</span><span class="filter-count" id="kingdoms-count-peace"></span></div>
+          </div>
+          <div class="filter-divider"></div>
+          <h4 class="filter-section-title" onclick="this.nextElementSibling.classList.toggle('filter-hidden');this.classList.toggle('collapsed')">Culture <span class="filter-arrow">&#9662;</span></h4>
+          <div class="side-list" id="kingdoms-culture-filters"></div>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="list-panel panel">
+          <div id="kingdoms-extras"></div>
+          <div class="list-header"><h2>Kingdoms</h2></div>
+          <div class="toolbar">
+            <div class="search"><input type="text" placeholder="Search kingdoms..." id="search-kingdoms"></div>
+          </div>
+          <div id="kingdoms-toolbar"></div>
+          <div class="grid" id="grid-kingdoms"></div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ═══ CHRONICLE PAGE ═══ -->
+  <section class="page" id="page-chronicle">
+    <div class="page-banner page-banner-chronicle">
+      <div class="page-banner-overlay"></div>
+      <div class="page-banner-content">
+        <h2>Chronicle</h2>
+        <p>Timeline of events across Calradia</p>
+      </div>
+    </div>
+    <div class="list-layout">
+      <aside class="sidebar">
+        <div class="side-header">
+          <div class="side-label">&#x1F4DC; Archive</div>
+          <div class="side-title">Chronicle</div>
+          <div class="side-desc">The written record of deeds, battles, and alliances across Calradia.</div>
+        </div>
+        <div class="side-block">
+          <h3>&#x1F4D6; Ledger</h3>
+          <div class="chr-stats-grid">
+            <div class="chr-stat-card"><span class="chr-stat-icon">&#x2694;</span><strong id="chronicle-total">0</strong><span class="chr-stat-lbl">Events</span></div>
+            <div class="chr-stat-card"><span class="chr-stat-icon">&#x1F4D6;</span><strong id="journal-total">0</strong><span class="chr-stat-lbl">Journal</span></div>
+            <div class="chr-stat-card"><span class="chr-stat-icon">&#x270E;</span><strong id="desc-total">0</strong><span class="chr-stat-lbl">Descriptions</span></div>
+            <div class="chr-stat-card"><span class="chr-stat-icon">&#x1F3F7;</span><strong id="tags-total">0</strong><span class="chr-stat-lbl">Tags</span></div>
+          </div>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="list-panel panel">
+          <div id="chronicle-extras"></div>
+          <div class="list-header"><h2>Campaign Chronicle</h2></div>
+          <div class="toolbar">
+            <div class="search"><input type="text" placeholder="Search the annals of history..." id="search-chronicle"></div>
+          </div>
+          <div id="chronicle-toolbar"></div>
+          <div class="lc-filters" id="chronicleFilters"></div>
+          <div class="chronicle-list" id="chronicle-list"></div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ═══ STATS DASHBOARD ═══ -->
+  <section class="page" id="page-stats">
+    <div class="stats-dashboard">
+      <div class="stats-header">
+        <h2>Campaign Statistics</h2>
+        <p>Aggregate numbers across your entire realm</p>
+      </div>
+      <div class="stats-body" id="statsBody"><div class="loading-spinner"></div></div>
+      <div class="wealth-graph-wrap">
+        <h3>&#x1FA99; Wealth Over Time</h3>
+        <div id="wealthGraph"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CLAN POWER RANKINGS ═══ -->
+  <section class="page" id="page-rankings">
+    <div class="stats-dashboard">
+      <div class="stats-header">
+        <h2>Clan Power Rankings</h2>
+        <p>Leaderboard across every clan in Calradia &mdash; click a column to sort</p>
+      </div>
+      <div id="rankingsBody"><div class="loading-spinner"></div></div>
+    </div>
+  </section>
+
+
+  <!-- ═══ HEROES COMPARE MODAL ═══ -->
+  <div class="hero-compare-overlay" id="heroCompareOverlay">
+    <div class="hero-compare-modal">
+      <div class="hero-compare-header">
+        <h3>Compare Heroes</h3>
+        <button class="hero-compare-close" onclick="document.getElementById('heroCompareOverlay').classList.remove('open')">&times;</button>
+      </div>
+      <div class="hero-compare-picker">
+        <input type="text" id="heroCompareSearch" class="hero-compare-input" placeholder="Search hero to add...">
+        <div id="heroCompareSearchResults" class="hero-compare-search-results"></div>
+      </div>
+      <div class="hero-compare-grid" id="heroCompareGrid"></div>
+    </div>
+  </div>
+
+  <!-- ═══ CHANGELOG / ABOUT MODAL ═══ -->
+  <div class="changelog-overlay" id="changelogOverlay">
+    <div class="changelog-modal">
+      <div class="changelog-header">
+        <h3>Editable Encyclopedia</h3>
+        <button class="changelog-close" onclick="document.getElementById('changelogOverlay').classList.remove('open')">&times;</button>
+      </div>
+      <div class="changelog-body" id="changelogBody"></div>
+    </div>
+  </div>
+
+  <!-- ═══ API DOCS ═══ -->
+  <section class="page" id="page-api">
+    <div class="api-docs">
+      <div class="api-docs-header">
+        <h2>EEWebExtension REST API</h2>
+        <p>Cross-mod integration endpoints for Bannerlord modders &middot; All responses are JSON</p>
+      </div>
+      <div class="api-docs-body" id="apiDocsBody"></div>
+    </div>
+  </section>
+
+  <!-- ═══ API TRY-IT MODAL ═══ -->
+  <div class="api-tryit-overlay" id="apiTryitOverlay">
+    <div class="api-tryit-modal">
+      <div class="api-tryit-header">
+        <div class="api-tryit-title"><span id="apiTryitMethod">GET</span><code id="apiTryitPath">/api/...</code></div>
+        <button class="api-tryit-close" onclick="document.getElementById('apiTryitOverlay').classList.remove('open')">&times;</button>
+      </div>
+      <div class="api-tryit-status" id="apiTryitStatus"></div>
+      <pre class="api-tryit-body" id="apiTryitBody"></pre>
+    </div>
+  </div>
+
+  <!-- ═══ FAMILY TREE MODAL ═══ -->
+  <div class="family-tree-overlay" id="familyTreeOverlay">
+    <div class="family-tree-modal">
+      <div class="family-tree-header">
+        <h3 id="familyTreeTitle">Family Tree</h3>
+        <button class="family-tree-close" onclick="document.getElementById('familyTreeOverlay').classList.remove('open')">&times;</button>
+      </div>
+      <div class="family-tree-canvas" id="familyTreeCanvas"></div>
+    </div>
+  </div>
+
+  <!-- ═══ LIVE CAMPAIGN MAP ═══ -->
+  <section class="page" id="page-map">
+    <div class="map-shell">
+      <div class="map-header">
+        <h2>Calradia &mdash; Live Map</h2>
+        <div class="map-controls">
+          <input type="text" class="map-search" id="mapSearch" placeholder="Search settlement...">
+          <button class="map-btn" id="mapBtnCenter" title="Center on player">&#x2316; YOU</button>
+          <label class="map-toggle"><input type="checkbox" id="mapLive" checked title="Auto-refresh every 20s"> Live</label>
+          <button class="map-btn" id="mapBtnRefresh" title="Refresh">&#x21BB;</button>
+          <button class="map-btn" id="mapBtnFit" title="Fit to view">&#x2922;</button>
+          <button class="map-btn" id="mapBtnZoomIn" title="Zoom in">+</button>
+          <button class="map-btn" id="mapBtnZoomOut" title="Zoom out">&minus;</button>
+          <label class="map-toggle"><input type="checkbox" id="mapShowParties" checked> Parties</label>
+          <label class="map-toggle"><input type="checkbox" id="mapShowVillages" checked> Villages</label>
+          <label class="map-toggle"><input type="checkbox" id="mapShowLabels" checked> Labels</label>
+          <label class="map-toggle"><input type="checkbox" id="mapShowRoads" checked> Roads</label>
+          <label class="map-toggle"><input type="checkbox" id="mapShowTrade"> Trade</label>
+          <button class="map-btn" id="mapBtnAutoAlign" title="One-click align">&#x1F3AF; Align</button>
+          <button class="map-btn" id="mapBtnCalibrate" title="Manual sliders">&#x2316;</button>
+          <select class="map-btn" id="mapHeatmap">
+            <option value="none">No heatmap</option>
+            <option value="prosperity">Prosperity heat</option>
+            <option value="loyalty">Loyalty heat</option>
+            <option value="security">Security heat</option>
+          </select>
+          <button class="map-btn" id="mapBtnMeasure" title="Distance measure tool">&#x1F4CF; Measure</button>
+          <button class="map-btn" id="mapBtnBookmark" title="Save current view">&#x1F4CC; Save View</button>
+          <select class="map-btn" id="mapBookmarkList">
+            <option value="">&mdash; Views &mdash;</option>
+          </select>
+        </div>
+      </div>
+      <div class="map-calibrate-bar" id="mapCalibrateBar" style="display:none">
+        <div style="color:#e8c468;font-style:italic">Shift+drag the map to move the image</div>
+        <div>
+          <label>Offset X <input type="range" id="calibX" min="-5000" max="5000" value="0" step="2"></label>
+          <span id="calibXVal">0</span>
+        </div>
+        <div>
+          <label>Offset Y <input type="range" id="calibY" min="-5000" max="5000" value="0" step="2"></label>
+          <span id="calibYVal">0</span>
+        </div>
+        <div>
+          <label>Scale X <input type="range" id="calibSX" min="0.1" max="5" value="1" step="0.005"></label>
+          <span id="calibSXVal">1.00</span>
+        </div>
+        <div>
+          <label>Scale Y <input type="range" id="calibSY" min="0.1" max="5" value="1" step="0.005"></label>
+          <span id="calibSYVal">1.00</span>
+        </div>
+        <button class="map-btn" id="calibLink" title="Lock X/Y scale together">&#x1F517;</button>
+        <button class="map-btn" id="calibReset">Reset</button>
+        <button class="map-btn" id="calibSave">Save</button>
+      </div>
+      <div class="map-stage" id="mapStage">
+        <svg id="mapSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+        <!-- Ornamental corner filigree -->
+        <div class="map-corner map-corner-tl"></div>
+        <div class="map-corner map-corner-tr"></div>
+        <div class="map-corner map-corner-bl"></div>
+        <div class="map-corner map-corner-br"></div>
+
+        <!-- Drifting ember particles (CSS-driven) -->
+        <div class="map-embers" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <!-- Edge vignette + parchment grain -->
+        <div class="map-vignette" aria-hidden="true"></div>
+        <div class="map-grain" aria-hidden="true"></div>
+
+        <!-- Day/night tint overlay (driven by game hour) -->
+        <div class="map-daynight" id="mapDayNight" aria-hidden="true"></div>
+
+        <!-- Title cartouche: current era/date -->
+        <div class="map-cartouche" id="mapCartouche">
+          <svg viewBox="0 0 360 46" preserveAspectRatio="none">
+            <path d="M6,8 Q18,2 40,6 L320,6 Q342,2 354,8 L352,38 Q340,44 320,40 L40,40 Q20,44 8,38 Z" fill="rgba(28,18,8,.92)" stroke="#d4b878" stroke-width="1.4"/>
+            <path d="M10,12 L350,12 M10,34 L350,34" stroke="#b88c32" stroke-width=".6" opacity=".5"/>
+          </svg>
+          <div class="map-cartouche-inner">
+            <span class="map-cartouche-kicker">&#x2721;</span>
+            <span class="map-cartouche-title" id="mapCartoucheTitle">CALRADIA</span>
+            <span class="map-cartouche-kicker">&#x2721;</span>
+          </div>
+          <div class="map-cartouche-date" id="mapCartoucheDate">&mdash;</div>
+        </div>
+
+        <!-- Compass rose -->
+        <div class="map-compass" id="mapCompass" title="Double-click: reset rotation">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <radialGradient id="compG" cx=".5" cy=".5"><stop offset="0" stop-color="rgba(60,40,16,.4)"/><stop offset=".7" stop-color="rgba(20,12,4,.7)"/><stop offset="1" stop-color="rgba(0,0,0,.85)"/></radialGradient>
+              <linearGradient id="compN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8ecc8"/><stop offset="1" stop-color="#a87830"/></linearGradient>
+              <linearGradient id="compS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a3818"/><stop offset="1" stop-color="#2a1608"/></linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="56" fill="url(#compG)" stroke="#b88c32" stroke-width="1.2"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#b88c32" stroke-width=".6" opacity=".55"/>
+            <circle cx="60" cy="60" r="44" fill="none" stroke="#b88c32" stroke-width=".4" opacity=".35" stroke-dasharray="2,3"/>
+            <!-- Tick marks every 15° -->
+            <g stroke="#d4b878" stroke-width=".8" opacity=".7">
+              <line x1="60" y1="8" x2="60" y2="14"/><line x1="60" y1="106" x2="60" y2="112"/>
+              <line x1="8" y1="60" x2="14" y2="60"/><line x1="106" y1="60" x2="112" y2="60"/>
+            </g>
+            <!-- Needle -->
+            <g class="compass-needle" id="compassNeedle">
+              <polygon points="60,16 56,60 60,20 64,60" fill="url(#compN)" stroke="#8a5818" stroke-width=".6"/>
+              <polygon points="60,104 56,60 60,100 64,60" fill="url(#compS)" stroke="#2a1608" stroke-width=".6"/>
+              <circle cx="60" cy="60" r="4.5" fill="#d4b878" stroke="#5a3010" stroke-width=".8"/>
+              <circle cx="60" cy="60" r="1.8" fill="#2a1608"/>
+            </g>
+            <!-- Cardinal letters -->
+            <text x="60" y="28" text-anchor="middle" font-family="Cinzel,serif" font-size="11" font-weight="700" fill="#f4e4c0">N</text>
+            <text x="60" y="100" text-anchor="middle" font-family="Cinzel,serif" font-size="10" fill="#c8a870">S</text>
+            <text x="100" y="64" text-anchor="middle" font-family="Cinzel,serif" font-size="10" fill="#c8a870">E</text>
+            <text x="20" y="64" text-anchor="middle" font-family="Cinzel,serif" font-size="10" fill="#c8a870">W</text>
+          </svg>
+        </div>
+
+        <!-- Coordinate + zoom readout -->
+        <div class="map-readout" id="mapReadout">
+          <div class="mr-line"><span>X</span><b id="mrX">0</b></div>
+          <div class="mr-line"><span>Y</span><b id="mrY">0</b></div>
+          <div class="mr-line"><span>Zoom</span><b id="mrZoom">100%</b></div>
+        </div>
+
+        <div class="map-tooltip" id="mapTooltip"></div>
+        <div class="map-search-results" id="mapSearchResults"></div>
+        <div class="map-kingdom-legend" id="mapKingdomLegend"></div>
+        <div class="map-minimap" id="mapMinimap"><svg id="mapMinimapSvg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+        <div class="map-slideout" id="mapSlideout"></div>
+        <div class="map-compare" id="mapCompare"></div>
+      </div>
+      <div class="map-legend">
+        <span><span class="map-leg-dot map-leg-town"></span> Town</span>
+        <span><span class="map-leg-dot map-leg-castle"></span> Castle</span>
+        <span><span class="map-leg-dot map-leg-village"></span> Village</span>
+        <span><span class="map-leg-dot map-leg-player"></span> Player</span>
+        <span><span class="map-leg-dot map-leg-friendly"></span> Allied Lord</span>
+        <span><span class="map-leg-dot map-leg-hostile"></span> Hostile Lord</span>
+        <span><span class="map-leg-dot map-leg-caravan"></span> Caravan</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DETAIL PAGE ═══ -->
+  <section class="page" id="page-detail">
+    <div class="detail-layout">
+      <aside class="detail-rail panel" id="detailRail">
+        <div class="skeleton" style="height:300px"></div>
+      </aside>
+      <main class="detail-main" id="detailBody">
+        <div class="skeleton" style="height:200px;border-radius:12px"></div>
+      </main>
+      <aside class="detail-right-rail" id="detailRightRail"></aside>
+    </div>
+  </section>
+
+  <!-- ═══ QUICK SEARCH — v2.4.0 immersive rewrite ═══ -->
+  <div class="cmd-palette-overlay qs-overlay" id="cmdPaletteOverlay">
+    <div class="cmd-palette qs-palette" id="cmdPalette">
+      <!-- Top ornamental bar -->
+      <div class="qs-topbar">
+        <svg viewBox="0 0 700 18" preserveAspectRatio="none">
+          <line x1="0" y1="9" x2="280" y2="9" stroke="#b88c32" stroke-width=".9" opacity=".45"/>
+          <path d="M290,4 Q300,9 290,14 Q300,9 310,4 Q320,9 310,14 Q320,9 330,4" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".6"/>
+          <circle cx="350" cy="9" r="3" fill="#d4b878" stroke="#6a3818" stroke-width=".6"/>
+          <path d="M360,4 Q370,9 360,14 Q370,9 380,4 Q390,9 380,14 Q390,9 400,4" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".6"/>
+          <line x1="410" y1="9" x2="700" y2="9" stroke="#b88c32" stroke-width=".9" opacity=".45"/>
+        </svg>
+      </div>
+
+      <!-- Search input row -->
+      <div class="qs-input-row">
+        <div class="qs-search-icon">&#x1F50D;</div>
+        <input type="text" class="cmd-palette-input qs-input" id="cmdPaletteInput" placeholder="Seek heroes, clans, realms, holds, pages, or commands..." autocomplete="off" spellcheck="false">
+        <div class="qs-kbd-badge"><kbd>Esc</kbd></div>
+      </div>
+
+      <!-- Filter chips -->
+      <div class="qs-filter-row" id="qsFilters">
+        <button class="qs-chip active" data-filter="all"><span class="qs-chip-icon">&#x2721;</span>All<span class="qs-chip-num">1</span></button>
+        <button class="qs-chip" data-filter="heroes"><span class="qs-chip-icon">&#x1F464;</span>Heroes<span class="qs-chip-num">2</span></button>
+        <button class="qs-chip" data-filter="clans"><span class="qs-chip-icon">&#x1F3E0;</span>Clans<span class="qs-chip-num">3</span></button>
+        <button class="qs-chip" data-filter="kingdoms"><span class="qs-chip-icon">&#x1F451;</span>Kingdoms<span class="qs-chip-num">4</span></button>
+        <button class="qs-chip" data-filter="settlements"><span class="qs-chip-icon">&#x1F3F0;</span>Holds<span class="qs-chip-num">5</span></button>
+        <button class="qs-chip" data-filter="pages"><span class="qs-chip-icon">&#x1F4D6;</span>Pages<span class="qs-chip-num">6</span></button>
+        <button class="qs-chip" data-filter="actions"><span class="qs-chip-icon">&#x2699;</span>Actions<span class="qs-chip-num">7</span></button>
+      </div>
+
+      <!-- Results scroller -->
+      <div class="cmd-palette-results qs-results" id="cmdPaletteResults"></div>
+
+      <!-- Footer hints -->
+      <div class="qs-footer">
+        <div class="qs-hint"><kbd>&#x2191;</kbd><kbd>&#x2193;</kbd>Navigate</div>
+        <div class="qs-hint"><kbd>&#x21B9;</kbd>Filter</div>
+        <div class="qs-hint"><kbd>&#x23CE;</kbd>Open</div>
+        <div class="qs-hint"><kbd>Ctrl</kbd>+<kbd>&#x23CE;</kbd>New tab style</div>
+        <div class="qs-hint qs-hint-tip">Type <code>/h</code> heroes &middot; <code>/c</code> clans &middot; <code>/k</code> kingdoms &middot; <code>/s</code> holds &middot; <code>&gt;</code> commands</div>
+      </div>
+
+      <!-- Bottom ornamental bar -->
+      <div class="qs-botbar">
+        <svg viewBox="0 0 700 18" preserveAspectRatio="none">
+          <line x1="0" y1="9" x2="280" y2="9" stroke="#b88c32" stroke-width=".9" opacity=".45"/>
+          <circle cx="300" cy="9" r="2.5" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".5"/>
+          <line x1="315" y1="9" x2="385" y2="9" stroke="#b88c32" stroke-width=".9" opacity=".45"/>
+          <circle cx="400" cy="9" r="2.5" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".5"/>
+          <line x1="415" y1="9" x2="700" y2="9" stroke="#b88c32" stroke-width=".9" opacity=".45"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ KEYBOARD HELP — v2.4.0 immersive scroll ═══ -->
+  <div class="kbd-help-overlay" id="kbdHelpOverlay">
+    <div class="kbd-help kbd-scroll">
+      <!-- Scroll top finial -->
+      <div class="kbd-scroll-finial kbd-scroll-finial-top">
+        <svg viewBox="0 0 600 28" preserveAspectRatio="none">
+          <line x1="30" y1="14" x2="570" y2="14" stroke="#b88c32" stroke-width="1.4" opacity=".55"/>
+          <circle cx="20" cy="14" r="8" fill="url(#kbdBossG)" stroke="#8c6820" stroke-width="1"/>
+          <circle cx="580" cy="14" r="8" fill="url(#kbdBossG)" stroke="#8c6820" stroke-width="1"/>
+          <circle cx="300" cy="14" r="5" fill="#d4b878" stroke="#8c6820" stroke-width=".8"/>
+          <defs><radialGradient id="kbdBossG" cx=".4" cy=".4"><stop offset="0" stop-color="#f8ecc8"/><stop offset=".6" stop-color="#b88c32"/><stop offset="1" stop-color="#5a3c10"/></radialGradient></defs>
+        </svg>
+      </div>
+
+      <div class="kbd-scroll-inner">
+        <button class="kbd-help-close" title="Close (Esc)" onclick="document.getElementById('kbdHelpOverlay').classList.remove('open')">&times;</button>
+
+        <div class="kbd-help-header">
+          <div class="kbd-help-kicker">&#x2606; The Scribe's Codex &#x2606;</div>
+          <h3 class="kbd-help-title">Keyboard Shortcuts</h3>
+          <div class="kbd-help-sub">Press <kbd class="kbd-inline">?</kbd> any time to summon this scroll</div>
+          <div class="kbd-help-ornament">
+            <svg viewBox="0 0 300 14" preserveAspectRatio="none">
+              <line x1="0" y1="7" x2="120" y2="7" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+              <path d="M130,3 Q140,7 130,11 Q140,7 150,3 Q160,7 150,11 Q160,7 170,3" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".5"/>
+              <line x1="180" y1="7" x2="300" y2="7" stroke="#b88c32" stroke-width=".8" opacity=".4"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="kbd-help-grid">
+          <div class="kbd-help-col">
+            <div class="kbd-help-section">
+              <h4><span class="kbd-h4-icon">&#x1F50D;</span>Global</h4>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>Ctrl</kbd>+<kbd>K</kbd></span><span class="kbd-desc">Command palette</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>?</kbd></span><span class="kbd-desc">Show this scroll</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>Esc</kbd></span><span class="kbd-desc">Close modal / slideout</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>/</kbd></span><span class="kbd-desc">Focus page search</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>T</kbd></span><span class="kbd-desc">Cycle theme</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>D</kbd></span><span class="kbd-desc">Cycle density</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>H</kbd></span><span class="kbd-desc">Toggle Player HUD</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>R</kbd></span><span class="kbd-desc">Refresh live data</span></div>
+            </div>
+
+            <div class="kbd-help-section">
+              <h4><span class="kbd-h4-icon">&#x2696;</span>Comparison</h4>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>C</kbd></span><span class="kbd-desc">Add hero to compare</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>Shift</kbd>+<kbd>C</kbd></span><span class="kbd-desc">Open compare modal</span></div>
+            </div>
+          </div>
+
+          <div class="kbd-help-col">
+            <div class="kbd-help-section kbd-nav-section">
+              <h4><span class="kbd-h4-icon">&#x1F9ED;</span>Navigation <small>(press <kbd class="kbd-inline">G</kbd> then)</small></h4>
+              <div class="kbd-nav-grid">
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>H</kbd><span>Heroes</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>C</kbd><span>Clans</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>K</kbd><span>Kingdoms</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>S</kbd><span>Settlements</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>M</kbd><span>Map</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>O</kbd><span>Commander</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>R</kbd><span>Rankings</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>T</kbd><span>Stats</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>A</kbd><span>API Docs</span></div>
+                <div class="kbd-nav-cell"><kbd>G</kbd><kbd>P</kbd><span>Home</span></div>
+              </div>
+            </div>
+
+            <div class="kbd-help-section">
+              <h4><span class="kbd-h4-icon">&#x1F4DC;</span>Detail View</h4>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>E</kbd></span><span class="kbd-desc">Edit current entity</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>N</kbd></span><span class="kbd-desc">Next in list</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>P</kbd></span><span class="kbd-desc">Previous in list</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>B</kbd></span><span class="kbd-desc">Back to list</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>J</kbd></span><span class="kbd-desc">Next chronicle entry</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>K</kbd></span><span class="kbd-desc">Previous chronicle entry</span></div>
+            </div>
+          </div>
+
+          <div class="kbd-help-col">
+            <div class="kbd-help-section">
+              <h4><span class="kbd-h4-icon">&#x1F5FA;</span>Map Page</h4>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span class="kbd-desc">Pan camera</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>&#x2B06;</kbd><kbd>&#x2B07;</kbd><kbd>&#x2B05;</kbd><kbd>&#x27A1;</kbd></span><span class="kbd-desc">Pan camera</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>+</kbd><kbd>-</kbd></span><span class="kbd-desc">Zoom in / out</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>F</kbd></span><span class="kbd-desc">Center on player</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>Shift</kbd>+drag</span><span class="kbd-desc">Align map image</span></div>
+              <div class="kbd-row"><span class="kbd-keys"><kbd>Shift</kbd>+click</span><span class="kbd-desc">Add party to compare</span></div>
+              <div class="kbd-row"><span class="kbd-keys">R-click</span><span class="kbd-desc">Settlement context menu</span></div>
+            </div>
+
+            <div class="kbd-help-section kbd-tip-section">
+              <h4><span class="kbd-h4-icon">&#x1F4A1;</span>Quill &amp; Parchment</h4>
+              <div class="kbd-tip">Two-key sequences are <b>Gmail-style</b> &mdash; tap <kbd class="kbd-inline">G</kbd>, release, then tap the page letter within 1.8 seconds.</div>
+              <div class="kbd-tip">Shortcuts are disabled while typing in any text field.</div>
+              <div class="kbd-tip">Toggle shortcuts entirely from <b>Preferences &#x2192; Navigation</b>.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kbd-help-footer">
+          <div class="kbd-footer-seal">&#x2694;</div>
+          <span>Codex of the Realm &mdash; forged by the scribes of Calradia</span>
+          <div class="kbd-footer-seal">&#x2694;</div>
+        </div>
+      </div>
+
+      <!-- Scroll bottom finial -->
+      <div class="kbd-scroll-finial kbd-scroll-finial-bot">
+        <svg viewBox="0 0 600 28" preserveAspectRatio="none">
+          <line x1="30" y1="14" x2="570" y2="14" stroke="#b88c32" stroke-width="1.4" opacity=".55"/>
+          <circle cx="20" cy="14" r="8" fill="url(#kbdBossG2)" stroke="#8c6820" stroke-width="1"/>
+          <circle cx="580" cy="14" r="8" fill="url(#kbdBossG2)" stroke="#8c6820" stroke-width="1"/>
+          <circle cx="300" cy="14" r="5" fill="#d4b878" stroke="#8c6820" stroke-width=".8"/>
+          <defs><radialGradient id="kbdBossG2" cx=".4" cy=".4"><stop offset="0" stop-color="#f8ecc8"/><stop offset=".6" stop-color="#b88c32"/><stop offset="1" stop-color="#5a3c10"/></radialGradient></defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EDIT MODAL ═══ -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Edit</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-save" id="modalSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TOAST ═══ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer">
+    <!-- Top ornamental border -->
+    <div class="footer-ornament">
+      <svg viewBox="0 0 800 20" preserveAspectRatio="xMidYMid meet">
+        <line x1="0" y1="10" x2="320" y2="10" stroke="#b88c32" stroke-width=".8" opacity=".2"/>
+        <circle cx="330" cy="10" r="2.5" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".35"/>
+        <path d="M340,5 Q350,10 340,15 Q350,10 360,5 Q370,10 360,15 Q370,10 380,5 Q390,10 380,15 Q390,10 400,5 Q410,10 400,15 Q410,10 420,5 Q430,10 420,15 Q430,10 440,5 Q450,10 440,15 Q450,10 460,5" fill="none" stroke="#b88c32" stroke-width=".8" opacity=".3"/>
+        <circle cx="470" cy="10" r="2.5" fill="none" stroke="#b88c32" stroke-width=".7" opacity=".35"/>
+        <line x1="480" y1="10" x2="800" y2="10" stroke="#b88c32" stroke-width=".8" opacity=".2"/>
+      </svg>
+    </div>
+
+    <!-- Wax seal with shield -->
+    <div class="footer-seal">
+      <svg viewBox="0 0 70 70" width="70" height="70">
+        <circle cx="35" cy="35" r="32" fill="none" stroke="#d8b35f" stroke-width="1.5" opacity=".4"/>
+        <circle cx="35" cy="35" r="27" fill="none" stroke="#d8b35f" stroke-width=".6" opacity=".25"/>
+        <circle cx="35" cy="35" r="22" fill="rgba(184,140,50,.03)" stroke="#d8b35f" stroke-width=".4" opacity=".2"/>
+        <!-- Shield shape inside -->
+        <path d="M35 14 L52 22 L52 40 Q52 55 35 62 Q18 55 18 40 L18 22 Z" fill="none" stroke="#d8b35f" stroke-width="1" opacity=".3"/>
+        <text x="35" y="42" text-anchor="middle" font-family="Cinzel,Georgia,serif" font-size="16" fill="#d8b35f" font-weight="700" opacity=".6">EE</text>
+      </svg>
+    </div>
+
+    <div class="footer-title">Editable Encyclopedia</div>
+    <div class="footer-subtitle">Mount &amp; Blade II: Bannerlord</div>
+
+    <!-- Crossed swords separator -->
+    <div class="footer-swords">
+      <svg viewBox="0 0 120 16" width="120" height="16">
+        <line x1="10" y1="14" x2="60" y2="2" stroke="#b88c32" stroke-width="1" opacity=".25" stroke-linecap="round"/>
+        <line x1="110" y1="14" x2="60" y2="2" stroke="#b88c32" stroke-width="1" opacity=".25" stroke-linecap="round"/>
+        <circle cx="60" cy="2" r="2" fill="#b88c32" opacity=".2"/>
+      </svg>
+    </div>
+
+    <div class="footer-info">
+      <span>v2.1.0</span>
+      <span class="footer-sep">&#10022;</span>
+      <span>Web Extension v1.0.0</span>
+      <span class="footer-sep">&#10022;</span>
+      <span>by <strong>XMuPb</strong></span>
+    </div>
+
+    <!-- Bottom ornamental border -->
+    <div class="footer-ornament footer-ornament-bottom">
+      <svg viewBox="0 0 800 20" preserveAspectRatio="xMidYMid meet">
+        <line x1="0" y1="10" x2="350" y2="10" stroke="#b88c32" stroke-width=".6" opacity=".15"/>
+        <polygon points="395,6 400,10 395,14" fill="#b88c32" opacity=".2"/>
+        <polygon points="405,6 400,10 405,14" fill="#b88c32" opacity=".2"/>
+        <line x1="450" y1="10" x2="800" y2="10" stroke="#b88c32" stroke-width=".6" opacity=".15"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PLAYER HUD BAR ═══ -->
+<div class="player-hud" id="playerHud">
+  <div class="hud-stats">
+    <div class="hud-stat" id="hud-s-gold"><span class="hud-icon">&#x1FA99;</span><span id="hud-gold">-</span><div class="hud-tooltip" id="hud-tip-gold"></div></div>
+    <div class="hud-stat" id="hud-s-speed"><span class="hud-icon">&#x1F3C7;</span><span id="hud-speed">-</span><div class="hud-tooltip" id="hud-tip-speed"></div></div>
+    <div class="hud-stat" id="hud-s-hp"><span class="hud-icon">&#x2764;</span><span id="hud-hp">-</span><div class="hud-tooltip" id="hud-tip-hp"></div></div>
+    <div class="hud-stat hud-ship-stat" id="hud-s-ship" style="display:none"><span class="hud-icon">&#x26F5;</span><span id="hud-ship">-</span><div class="hud-tooltip" id="hud-tip-ship"></div></div>
+    <div class="hud-stat" id="hud-s-troops"><span class="hud-icon">&#x2694;</span><span id="hud-troops">-</span><div class="hud-tooltip" id="hud-tip-troops"></div></div>
+    <div class="hud-stat" id="hud-s-food"><span class="hud-icon">&#x1F356;</span><span id="hud-food">-</span><div class="hud-tooltip" id="hud-tip-food"></div></div>
+    <div class="hud-stat" id="hud-s-morale"><span class="hud-icon">&#x2B50;</span><span id="hud-morale">-</span><div class="hud-tooltip" id="hud-tip-morale"></div></div>
+    <div class="hud-stat" id="hud-s-influence"><span class="hud-icon">&#x1F451;</span><span id="hud-influence">-</span><div class="hud-tooltip" id="hud-tip-influence"></div></div>
+    <div class="hud-stat" id="hud-s-wage"><span class="hud-icon">&#x1F4B0;</span><span id="hud-wage">-</span><div class="hud-tooltip" id="hud-tip-wage"></div></div>
+  </div>
+</div>
+
+<!-- App -->
+<script>document.write('<script src="js/api.js?v=' + Date.now() + '"><\/script>');</script>
+<script src="js/banner_colors.js" onerror=""></script>
+<script src="js/banner.js"></script>
+<script>document.write('<script src="js/app.js?v=' + Date.now() + '"><\/script>');</script>
+</body>
+</html>
